@@ -1,3 +1,4 @@
+package Search;
 public class LinearSearch {
     public static void main(String[] args) {
         int [] arr = new int [] {5,3,2,6,11,4};
