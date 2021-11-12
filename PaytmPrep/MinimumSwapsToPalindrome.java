@@ -5,11 +5,18 @@ import java.util.*;
 public class MinimumSwapsToPalindrome {
      public static void main(String[] args) {
          String str = "abcbac";
-         String [] testCases = new String[]{"abcbac","abcde","ababab","abc",""};
-         for(String s : testCases){
-            int minSwap = minimumSwapsToPalindrome(s);
-            System.out.println("Min Swaps Required are: "+minSwap);
+         Scanner sc = new Scanner(System.in);
+         String input = sc.next();
+         while(input != "0"){
+
+                int minSwap = minimumSwapsToPalindrome(input);
+                System.out.println(minSwap == -1 ? "Impossible" : minSwap);
+                input = sc.next();
          }
+         String [] testCases = new String[]{"mamad",
+            "asflkj",
+            "aabb"};
+         
      }
 
     private static int minimumSwapsToPalindrome(String str) {
@@ -27,13 +34,22 @@ public class MinimumSwapsToPalindrome {
                     int ptr = right-1;
                     while(ptr > left) {
                         if(str.charAt(ptr) == str.charAt(left)){
-                            count++;
-                            str = swap(str,ptr,right);
+                            while(ptr < right){
+                                count++;
+                                System.out.println("Str Before Swap: "+str);
+                                char temp = str.charAt(ptr);
+                                char [] charArr = str.toCharArray();
+                                charArr[ptr] = charArr[ptr+1];
+                                charArr[ptr+1] = temp;
+                                str = new String(charArr);
+                                System.out.println("Str After Swap: "+str);
+                                ptr++;
+                            }
                             left++;
                             right--;
                             break;
                         } else {
-                            count++;
+                            ptr--;
                         }
                     }
                 }
@@ -41,15 +57,6 @@ public class MinimumSwapsToPalindrome {
             return count;
         }
         return -1;
-    }
-
-    private static String swap(String str, int ptr, int right) {
-        char temp = str.charAt(ptr);
-        char [] charArr = str.toCharArray();
-        charArr[ptr] = charArr[right];
-        charArr[right] = temp;
-        str = new String(charArr);
-        return str;
     }
 
     private static boolean canStringBePalindrome(String str) {
