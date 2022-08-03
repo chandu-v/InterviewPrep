@@ -1,0 +1,47 @@
+A circle is defined by x-axis position, y-axis position, and a radius. A circle group is a collection of circles that overlap. Given a list of circles, figure out if they belong to a single circle group. 
+  
+  
+  int numberOfCircles = 5;
+  int [][] circles = new int[numberOfCircles][3];
+{
+  {0 , 0 , 5}
+}
+
+  
+  boolean  isGroupOfCircles(int [][] cirlces) {
+   int n = circles.length;
+   boolean [] visited = new boolean[n]; 
+   Queue<Integer> queue = new Queue();
+    
+    queue.add(0);
+    List<Integer> notVisited = new ArrayList<>();
+    
+    while(!queue.isEmpty()) {
+       int curr_index = queue.dequeue();
+        List<Integer> nearestList = findAllNearestCircles(curr_index,circles);
+        queue.addAll(nearestList);    
+    }
+    
+    for(int i = 0 ; i < n ; i++) {
+      if(!visited[i]) return false;
+    }
+    return true;
+  }   
+
+List<Integer> findAllNearestCircles(int index,int [][] circles,boolean [] visited) {
+    int n = circles.length;
+  List<Integer> indexes = new ArrayList<>();
+    for(int i = 0 ; i < n ; i++) {
+      if(i == index || visited[i]) continue;
+      if(doTwoCirclesOverLap(circles,index,i)) {
+        indexes.add(i);
+        visited[i] = true;
+      }
+    }
+  return indexes;
+}
+
+
+
+
+
